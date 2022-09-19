@@ -1,0 +1,87 @@
+@font-face {
+  font-family: 'Inter';
+  font-style:  normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./Inter-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style:  italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./Inter-Italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style:  normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./Inter-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style:  italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./Inter-BoldItalic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: 'IBMPlexMono';
+  font-style:  normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./IBMPlexMono-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: 'IBMPlexMono';
+  font-style:  italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./IBMPlexMono-Italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: 'IBMPlexMono';
+  font-style:  normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./IBMPlexMono-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: 'IBMPlexMono';
+  font-style:  italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./IBMPlexMono-BoldItalic.woff2") format("woff2");
+}
+
+html {
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+
+  --sans: 'Inter', Arial, Helvetica, sans-serif;
+  --mono: 'IBMPlexMono', 'Courier New', Courier, monospace;
+  --c-back: #f2eee9;
+  --c-front: #b77353;
+
+  font-family: var(--sans);
+  background: var(--c-back);
+  color: var(--c-front);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
