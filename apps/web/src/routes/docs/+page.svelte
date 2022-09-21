@@ -20,21 +20,6 @@
 </section>
 
 <style>
-  div {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    margin-bottom: 1rem;
-  }
-
-  h1 {
-    margin: 0;
-    margin-right: auto;
-    font-size: 1rem;
-    line-height: 1rem;
-    text-transform: uppercase;
-  }
-
   ul {
     display: flex;
     flex-direction: column;

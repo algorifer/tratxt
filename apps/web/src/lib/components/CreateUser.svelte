@@ -3,6 +3,7 @@
 
   import { user, base } from '$lib/stores'
   import { createUser } from '$lib/utils/createUser'
+  import { signIn } from '$lib/supabase'
 
   let name: string = ''
 
@@ -24,20 +25,19 @@
   }
 </script>
 
-{#if $user === null}
-  <section>
-    <div class="wrapper">
-      <h2>Create user</h2>
-      <form on:submit={submit}>
-        <TextField name="name" label="Name" bind:value={name} />
-        <Button type="submit">Create</Button>
-      </form>
-    </div>
-  </section>
-{/if}
+<section>
+  <div class="wrapper">
+    <h2>Create user</h2>
+    <form on:submit={submit}>
+      <TextField name="name" label="Name" bind:value={name} />
+      <Button type="submit">Create</Button>
+      <Button type="button" on:click={() => signIn('github')}>Github Login</Button>
+    </form>
+  </div>
+</section>
 
 <style>
-  .section {
+  section {
     display: flex;
   }
 

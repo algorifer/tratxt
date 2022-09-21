@@ -1,9 +1,8 @@
 <script lang="ts">
   import { page } from '$app/stores'
   import { Button } from 'ui'
-  import { user } from '$lib/stores'
 
-  $: console.log($page.routeId)
+  export let user: Record<string, any> | null = null
 </script>
 
 <div>
@@ -15,7 +14,7 @@
   {:else}
     <h1>Tracker</h1>
   {/if}
-  {#if $user}
+  {#if user}
     <nav>
       <ul>
         <li>
