@@ -1,18 +1,19 @@
-import type { HandleServerError, Handle } from '@sveltejs/kit'
-import { supabaseServerClient } from '$lib/supabase'
+import { getSupabase } from '@supabase/auth-helpers-sveltekit'
+import '$lib/supabase'
+import type { Handle, HandleServerError } from '@sveltejs/kit'
 
-export const handle: Handle = async ({ event, resolve }) => {
-  const tokens = event.cookies.get('tokens') ? JSON.parse(event.cookies.get('tokens') ?? '') : null
-  const user = event.cookies.get('user') ? JSON.parse(event.cookies.get('user') ?? '') : null
+export const handle: Handle = async ({ event, resolve}) => {
+  const { session, supabaseClient } = await getSupabase(event)
+  if (!session) return resolve(event)
 
-  if (tokens) {
-    supabaseServerClient.auth.setSession(tokens.access_token)
-  }
+  const { data } = await supabaseClient
+    .from('profiles')
+    .select('*')
+    .eq('id', session.user.id)
+    .single()
 
-  event.locals.user = user
-
-  const response = await resolve(event)
-  return response
+  event.locals.profile = data
+  return resolve(event)
 }
 
 export const handleError: HandleServerError = ({ error }) => {

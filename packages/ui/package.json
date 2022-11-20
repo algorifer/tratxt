@@ -15,7 +15,14 @@
     "svelte": "^3.49.0"
   },
   "dependencies": {
+    "@codemirror/lang-markdown": "^6.0.3",
+    "@codemirror/language": "^6.3.0",
+    "@codemirror/language-data": "^6.1.0",
+    "@codemirror/state": "^6.1.2",
+    "@codemirror/view": "^6.4.0",
+    "@lezer/highlight": "^1.1.2",
     "@novacbn/svelte-codejar": "^0.1.2",
+    "marked": "^4.1.1",
     "prismjs": "^1.29.0",
     "svelte-boring-avatars": "^1.2.2"
   }

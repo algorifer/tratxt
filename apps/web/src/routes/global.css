@@ -1,0 +1,134 @@
+@font-face {
+  font-family: 'Inter';
+  font-style:  normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/Inter-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style:  italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/Inter-Italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style:  normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/Inter-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style:  italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/Inter-BoldItalic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: 'JetBrainsMono';
+  font-style:  normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/JetBrainsMono-Light.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: 'JetBrainsMono';
+  font-style:  italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/JetBrainsMono-LightItalic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: 'JetBrainsMono';
+  font-style:  normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/JetBrainsMono-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: 'JetBrainsMono';
+  font-style:  italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/JetBrainsMono-BoldItalic.woff2") format("woff2");
+}
+
+html {
+  font-size: 14px;
+  line-height: 1.4rem;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --sans: 'Inter', Arial, Helvetica, sans-serif;
+  --mono: 'JetBrainsMono', 'Courier New', Courier, monospace;
+
+  --c-front: #ffffff;
+  --c-back: #1c1c1c;
+  --c-gray: #777777;
+  /* --c-front: #1c1c1c;
+  --c-back: #ffffff;
+  --c-gray: #777777; */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+
+
+  font-family: var(--sans);
+  background: var(--c-back);
+  color: var(--c-front);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+a {
+  color: var(--c-front);
+  text-decoration: none;
+  transition: 0.2s ease-in-out;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:focus {
+  color: var(--c-back);
+  background: var(--c-front);
+}
+
+button {
+  padding: 0;
+  flex-shrink: 0;
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: inherit;
+  border: none;
+  background: transparent;
+  color: var(--c-gray);
+  cursor: pointer;
+  outline: none;
+  transition: 0.2s ease-in-out;
+}
+
+button:hover {
+  text-decoration: underline;
+}
+
+button:focus {
+  color: var(--c-back);
+  background: var(--c-front);
+}

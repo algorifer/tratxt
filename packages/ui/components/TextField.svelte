@@ -1,103 +1,52 @@
 <script lang="ts">
-  import { createEventDispatcher, onMount } from 'svelte'
-
-  type ChangeEvent = Event & {
-    currentTarget: EventTarget & HTMLSpanElement
-  }
+  import { slide } from 'svelte/transition'
 
   export let name: string
-  export let value: string
+  export let value: string = ''
   export let label: string | undefined = undefined
-
-  let isJS: boolean = false
-
-  onMount(() => {
-    isJS = true
-  })
-
-  const dispatch = createEventDispatcher()
-
-  const change = (e: ChangeEvent) => {
-    value = e.currentTarget.textContent
-    dispatch('change', e.currentTarget.textContent)
-  }
+  export let placeholder: string = 'Enter text...'
+  export let help: string | undefined = undefined
+  export let ref: HTMLInputElement | undefined = undefined
 </script>
 
 <div class="field">
-  {#if isJS}
-    <span class="input" id={name} contenteditable on:input={change} spellcheck="false">
-      {value}
-    </span>
-  {:else}
-    <input
-      class="input"
-      id={name}
-      {name}
-      type="text"
-      bind:value
-      on:change={change}
-      spellcheck="false"
-    />
+  {#if label}
+    <label for={name}>
+      {label}
+    </label>
   {/if}
-  <label for={name}>
-    <span class="arrow" aria-hidden="true">→</span>
-    {#if label && value.length === 0}
-      <span class="label">{label}</span>
-    {/if}
-  </label>
+  <input bind:this={ref} id={name} {name} {placeholder} type="text" {value} spellcheck="false" />
+  {#if help}
+    <span transition:slide>{help}</span>
+  {/if}
 </div>
 
 <style>
   .field {
-    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: baseline;
+    gap: 0 3rem;
+    grid-area: var(--area);
   }
 
   label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    pointer-events: none;
-    transition: 0.2s ease-in-out;
+    grid-column: 1;
+    font-family: var(--mono);
+    text-transform: uppercase;
   }
 
-  .arrow {
-    padding: 0.5rem;
-    font-weight: bold;
-    opacity: 0.6;
-    transition: 0.2s ease-in-out;
-  }
-
-  .label {
-    font-style: italic;
-  }
-
-  .input {
-    display: block;
+  input {
+    grid-column: 2 / 4;
     width: 100%;
     padding: 0.5rem;
-    padding-left: 3rem;
     font-family: inherit;
-    font-size: 1rem;
-    color: inherit;
-    background: none;
-    border: none;
+    font-size: inherit;
+    line-height: inherit;
     outline: none;
-  }
-
-  .input:hover ~ label .arrow {
-    opacity: 1;
-  }
-
-  .input:focus ~ label {
-    gap: 2rem;
-  }
-
-  .input:focus ~ label .arrow {
-    opacity: 1;
-    color: var(--c-back);
-    background: var(--c-front);
+    background: var(--c-input-back);
+    color: var(--c-input-front);
+    border: none;
+    transition: 0.2s ease-in-out;
   }
 </style>
