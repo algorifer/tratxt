@@ -19,7 +19,7 @@
 </script>
 
 <MainControl {params} --area="cmd" />
-<Header description={data.meta.description} />
+<Header meta={data.meta} />
 <main>
   <ul>
     {#if !data.records?.length}

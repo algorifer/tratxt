@@ -6,8 +6,10 @@ import { invalid } from '@sveltejs/kit'
 
 const changeName = (text: string, name: string): string => {
   const lines = text.split('\n')
-  const paramsIdx = lines.findIndex((it) => it.startsWith('# name = '))
-  lines[paramsIdx] = `# name = ${name}`
+  const nameIdx = lines.findIndex((it) => it.startsWith('# name'))
+  const urlIdx = lines.findIndex((it) => it.startsWith('# url'))
+  lines[nameIdx] = `# name        = ${name}`
+  lines[urlIdx] = `# url         = ${name}`
 
   return lines.join('\n')
 }

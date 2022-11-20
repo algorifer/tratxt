@@ -4,6 +4,7 @@ import type { ActionResult } from '../../types'
 import { addRecord } from './addRecord'
 import { editName } from './editName'
 import { editDescription } from './editDescription'
+import { editSite } from './editSite'
 
 export const cmd = async (event: RequestEvent): ActionResult => {
   const formData = await event.request.formData()
@@ -17,6 +18,8 @@ export const cmd = async (event: RequestEvent): ActionResult => {
       return editName(event, message)
     case 'edit:desc':
       return editDescription(event, message)
+    case 'edit:site':
+      return editSite(event, message)
     default:
       return addRecord(event, message)
   }

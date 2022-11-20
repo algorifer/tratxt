@@ -1,15 +1,18 @@
 <script lang="ts">
-  import { page } from '$app/stores'
+  import type { TratxtMeta } from 'tratxt'
   import Tabs from './Tabs.svelte'
   import FilterLabel from './FilterLabel.svelte'
 
-  export let description: string = ''
+  export let meta: TratxtMeta
 </script>
 
 <header>
-  <h1>@{$page.params.profileSlug}</h1>
-  {#if description}
-    <p>{description}</p>
+  <h1>@{meta.author}</h1>
+  {#if meta.description}
+    <p>{meta.description}</p>
+  {/if}
+  {#if meta.site}
+    <a href={meta.site} target="_blank">{meta.site}</a>
   {/if}
   <Tabs --area="tabs" />
   <FilterLabel --area="filter" />
@@ -40,15 +43,22 @@
       grid-template-columns: repeat(3, 1fr);
       grid-template-areas:
         'title title tabs'
-        'desc  site  filter';
+        'desc  empty filter'
+        'site  empty filter';
+      gap: 0 1rem;
     }
 
     h1 {
       grid-area: title;
+      margin-bottom: 1rem;
     }
 
     p {
       grid-area: desc;
+    }
+
+    a {
+      grid-area: site;
     }
   }
 
@@ -57,7 +67,8 @@
       grid-template-columns: repeat(4, 1fr);
       grid-template-areas:
         'title filter tabs tabs'
-        'desc  site   tabs tabs';
+        'desc  empty  tabs tabs'
+        'site  empty  tabs tabs';
     }
   }
 </style>

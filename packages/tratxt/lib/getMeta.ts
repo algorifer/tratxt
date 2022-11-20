@@ -31,6 +31,11 @@ export const getMeta = (lines: string[]) => {
         if (!description?.length) break
         meta.description = description
         break
+      case TratxtParams.Site:
+        const [, site] = body
+        if (!site?.length) break
+        meta.site = site
+        break
       case TratxtParams.Prev:
         const [, prev] = body
         if (!prev?.length) break

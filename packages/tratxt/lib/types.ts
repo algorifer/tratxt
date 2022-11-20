@@ -18,6 +18,7 @@ export interface TratxtMeta {
   url: string
   subscribes: TratxtSubscribe[] 
   description?: string
+  site?: string
   prev?: string
 }
 
@@ -30,6 +31,7 @@ export enum TratxtParams {
   Name = 'name',
   Url = 'url',
   Description = 'description',
+  Site = 'site',
   Subscribe = 'subscribe',
   Prev = 'prev',
 }
