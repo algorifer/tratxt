@@ -5,6 +5,8 @@ import { addRecord } from './addRecord'
 import { editName } from './editName'
 import { editDescription } from './editDescription'
 import { editSite } from './editSite'
+import { startTracker } from './startTracker'
+import { stopTracker } from './stopTracker'
 
 export const cmd = async (event: RequestEvent): ActionResult => {
   const formData = await event.request.formData()
@@ -20,6 +22,10 @@ export const cmd = async (event: RequestEvent): ActionResult => {
       return editDescription(event, message)
     case 'edit:site':
       return editSite(event, message)
+    case 'start':
+      return startTracker(event, message)
+    case 'stop':
+      return stopTracker(event, message)
     default:
       return addRecord(event, message)
   }

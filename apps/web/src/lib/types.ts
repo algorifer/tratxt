@@ -18,6 +18,7 @@ export type ActionResult = Promise<ValidationError<BasicActionData> | BasicActio
 export interface ControlParams {
   userId?: string
   userName?: string
+  tracker?: string
   action?: string
   placeholder?: string
   cmdValue?: string

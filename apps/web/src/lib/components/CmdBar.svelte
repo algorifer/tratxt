@@ -1,18 +1,53 @@
 <script lang="ts">
+  import { onDestroy, onMount } from 'svelte'
+  import { DateTime } from 'luxon'
+  import { enhance } from '$app/forms'
   import CmdInput from './CmdInput.svelte'
 
   export let value: string = ''
   export let placeholder: string = `Type command`
   export let error: string | null = null
   export let userName: string
+  export let tracker: string | undefined = undefined
 
-  $: cmd = value
+  let duration: string | undefined = undefined
+  let interval: NodeJS.Timer | undefined = undefined
+
+  const getDuration = (startTime?: string) => {
+    if (!startTime) {
+      duration = undefined
+      if (interval) clearInterval(interval)
+      return
+    }
+
+    const start = DateTime.fromISO(startTime)
+    const diff = DateTime.now().diff(start, ['hours', 'minutes', 'second']).toObject()
+    duration = `${diff.hours}:${diff.minutes}`
+
+    interval = setInterval(() => {
+      const diff = DateTime.now().diff(start, ['hours', 'minutes', 'second']).toObject()
+      duration = `${diff.hours}:${diff.minutes}`
+    }, 1000)
+  }
+
+  $: getDuration(tracker)
+
+  onDestroy(() => {
+    if (interval) clearInterval(interval)
+  })
+
+  $: start = tracker && DateTime.fromISO(tracker).toFormat('hh:mm')
 </script>
 
-<form method="post" action="?/cmd">
+<form method="post" action="?/cmd" use:enhance>
   <h1>tratxt</h1>
   <div class="links">
     <a href={`/${userName}`} class="profile">Profile</a>
+    {#if duration}
+      <span>Traker: {duration}</span>
+    {:else if start}
+      <span>Traker started: {start}</span>
+    {/if}
   </div>
   <CmdInput {value} {placeholder} {error} --area="input" />
 </form>
@@ -46,6 +81,11 @@
     color: var(--c-gray);
   }
 
+  span {
+    margin-left: auto;
+    font-family: var(--mono);
+  }
+
   h1 {
     grid-area: title;
     margin: 0;
@@ -61,6 +101,7 @@
       grid-template-columns: auto 1fr auto;
       grid-template-areas: 'title input links';
       align-items: start;
+      gap: 2rem;
     }
 
     h1,

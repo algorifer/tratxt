@@ -70,7 +70,6 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-template-areas: 'filter list list';
-      gap: 1rem;
     }
 
     aside {
@@ -79,6 +78,7 @@
 
     ul {
       grid-area: list;
+      gap: 2rem;
     }
   }
 

@@ -16,6 +16,7 @@
     userName={params.userName}
     placeholder={params.placeholder}
     value={params.cmdValue}
-    errorMessage={params.cmdError}
+    error={params.cmdError}
+    tracker={params.tracker}
   />
 {/if}

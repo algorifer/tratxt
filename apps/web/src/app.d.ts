@@ -24,6 +24,7 @@ declare namespace App {
   interface PageData {
     userId?: string
     userName?: string
+    tracker?: string
   }
   // interface Platform {}
   // interface Session {}

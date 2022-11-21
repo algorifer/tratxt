@@ -14,8 +14,15 @@ export const load: LayoutServerLoad = async (event) => {
     .eq('id', userId)
     .single()
 
+  const { data: tracker } = await supabaseClient
+    .from('current_times')
+    .select('start')
+    .eq('author', userId)
+    .single()
+
   return {
     userId,
     userName: data?.name,
+    tracker: tracker?.start
   }
 }

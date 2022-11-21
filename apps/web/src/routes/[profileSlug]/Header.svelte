@@ -30,7 +30,8 @@
 
   h1 {
     margin: 0;
-    font-size: 1rem;
+    font-size: 2rem;
+    font-weight: 400;
   }
 
   p {
@@ -45,7 +46,7 @@
         'title title tabs'
         'desc  empty filter'
         'site  empty filter';
-      gap: 0 1rem;
+      gap: 0 2rem;
     }
 
     h1 {

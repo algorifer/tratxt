@@ -27,19 +27,16 @@ export interface Database {
           id: string
           start: string
           author: string
-          note: string
         }
         Insert: {
           id?: string
           start?: string
           author: string
-          note: string
         }
         Update: {
           id?: string
           start?: string
           author?: string
-          note?: string
         }
       }
       profiles: {
