@@ -16,10 +16,6 @@
     "eslint-config-custom": "*"
   },
   "dependencies": {
-    "base32-encode": "^2.0.0",
-    "blake2": "^4.1.1",
-    "crypto-js": "^4.1.1",
-    "hash.js": "^1.1.7",
     "luxon": "^3.1.0",
     "nanoid": "^4.0.0"
   }
