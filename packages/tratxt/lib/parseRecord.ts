@@ -1,5 +1,5 @@
 import type { Record, RecordMeta } from './types'
-import { createRecordHash } from './createHash'
+import { nanoid } from 'nanoid'
 
 const reChannel = /(\s|^)\/([a-zA-Z0-9]+)/g
 const reProject = /(^|\s)(~[a-z\d-]+)/ig
@@ -18,17 +18,13 @@ const cleanBody = (body: string, meta: RecordMeta): string => {
   return cleaned
 }
 
-export const parseRecord = (author: string, url: string, line: string): Record => {
-  const [date, body] = line.replace('  ', '\t').split('\t')
-
-  const time = parseInt(body.match(reTime)?.[0].trim().slice(1) ?? '0', 10)
-
+export const parseRecord = (author: string, line: string): Omit<Record, 'date'> => {
   const meta: RecordMeta = {
-    project: body.match(reProject)?.[0].trim().slice(1) ?? null,
-    channel: body.match(reChannel)?.[0].trim().slice(1) ?? null,
-    mood: body.match(reMood)?.[0].trim().slice(1) ?? null,
-    time: parseInt(body.match(reTime)?.[0].trim().slice(1) ?? '0', 10),
-    tags: body.match(reTag)?.map((it) => it.trim().slice(1))
+    project: line.match(reProject)?.[0].trim().slice(1) ?? null,
+    channel: line.match(reChannel)?.[0].trim().slice(1) ?? null,
+    mood: line.match(reMood)?.[0].trim().slice(1) ?? null,
+    time: parseInt(line.match(reTime)?.[0].trim().slice(1) ?? '0', 10),
+    tags: line.match(reTag)?.map((it) => it.trim().slice(1))
       .reduce((acc, it) => {
         if (acc.includes(it)) return acc
         acc.push(it)
@@ -37,10 +33,9 @@ export const parseRecord = (author: string, url: string, line: string): Record =
   }
 
   return {
-    hash: createRecordHash(url, date, body),
+    hash: nanoid(7),
     author,
-    date,
-    body: cleanBody(body, meta),
+    body: cleanBody(line, meta),
     ...meta
   }
 }

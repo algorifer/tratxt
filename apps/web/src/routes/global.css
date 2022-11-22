@@ -74,11 +74,11 @@ html {
   --mono: 'JetBrainsMono', 'Courier New', Courier, monospace;
 
   --c-front: #ffffff;
-  --c-back: #1c1c1c;
-  --c-gray: #777777;
-  /* --c-front: #1c1c1c;
+  --c-back: #151515;
+  --c-gray: #8a8a8a;
+  /* --c-front: #151515;
   --c-back: #ffffff;
-  --c-gray: #777777; */
+  --c-gray: #8a8a8a; */
 }
 
 body {
@@ -96,7 +96,7 @@ body {
 }
 
 a {
-  color: var(--c-front);
+  color: var(--c-gray);
   text-decoration: none;
   transition: 0.2s ease-in-out;
 }
@@ -106,8 +106,7 @@ a:hover {
 }
 
 a:focus {
-  color: var(--c-back);
-  background: var(--c-front);
+  color: var(--c-front);
 }
 
 button {
@@ -129,6 +128,5 @@ button:hover {
 }
 
 button:focus {
-  color: var(--c-back);
-  background: var(--c-front);
+  color: var(--c-front);
 }

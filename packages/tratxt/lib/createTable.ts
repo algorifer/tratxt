@@ -1,4 +1,4 @@
-import { Record, RecordTable } from './types'
+import type { Record, RecordTable } from './types'
 
 export const createTable = (records: Record[]): RecordTable => {
   const hashes: string[] = []
@@ -13,9 +13,9 @@ export const createTable = (records: Record[]): RecordTable => {
   for (const record of records) {
     hashes.push(record.hash)
     dates.push(record.date)
-    projects.push(record.project)
-    channels.push(record.channel)
-    moods.push(record.mood)
+    projects.push(record.project ?? null)
+    channels.push(record.channel ?? null)
+    moods.push(record.mood ?? null)
     times.push(record.time)
     tags.push(record.tags)
     bodies.push(record.body)

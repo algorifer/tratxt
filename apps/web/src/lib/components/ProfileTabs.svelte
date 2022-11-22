@@ -7,7 +7,7 @@
 
 <ul>
   <li>
-    <a href={`${basePath}`} class:active={$page.route.id === baseRoute}>Trates</a>
+    <a href={`${basePath}`} class:active={$page.route.id === baseRoute}>Feed</a>
   </li>
   <li>
     <a href={`${basePath}/info`} class:active={$page.route.id === `${baseRoute}/info`}>Info</a>
@@ -25,21 +25,11 @@
     padding: 0;
     grid-area: var(--area);
     list-style: none;
+    font-family: var(--mono);
     text-transform: uppercase;
-  }
-
-  a {
-    color: var(--c-gray);
   }
 
   .active {
     color: var(--c-front);
-  }
-
-  @media (min-width: 1240px) {
-    ul {
-      flex-direction: column;
-      gap: 0;
-    }
   }
 </style>

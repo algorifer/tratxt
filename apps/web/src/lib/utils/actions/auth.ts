@@ -1,8 +1,7 @@
 import { getSupabase } from '@supabase/auth-helpers-sveltekit'
 import { redirect, invalid } from '@sveltejs/kit'
 import type { RequestEvent } from '@sveltejs/kit'
-import { dev } from '$app/environment'
-import type { ActionResult } from '../types'
+import type { ActionResult } from '../../types'
 
 export const email = async (event: RequestEvent): ActionResult => {
   const { supabaseClient } = await getSupabase(event)
@@ -16,7 +15,7 @@ export const email = async (event: RequestEvent): ActionResult => {
   const { error } = await supabaseClient.auth.signInWithOtp({ 
     email, 
     options: {
-      emailRedirectTo: dev ? 'http://localhost:3000' : undefined 
+      emailRedirectTo: event.url.host, 
     } 
   })
   
@@ -35,7 +34,7 @@ export const github = async (event: RequestEvent): ActionResult => {
   const { data, error } = await supabaseClient.auth.signInWithOAuth({ 
     provider: 'github', 
     options: {
-      redirectTo: dev ? 'http://localhost:3000' : undefined 
+      redirectTo: event.url.host, 
     }
   })
     

@@ -10,7 +10,7 @@
 </script>
 
 {#if show}
-  <a aria-label="Clean filter" title="Clean filter" href={`/${$page.params.profileSlug}`}>
+  <a aria-label="Clean filter" title="Clean filter" href={$page.url.pathname}>
     <span>Filter: </span>
     {#if projectFilter}
       <span class="name">~{projectFilter}</span>
@@ -28,8 +28,8 @@
 <style>
   a {
     grid-area: var(--area);
+    font-family: var(--mono);
     text-transform: uppercase;
-    color: var(--c-gray);
   }
 
   .name {

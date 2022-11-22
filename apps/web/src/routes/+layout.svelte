@@ -25,6 +25,11 @@
 </div>
 
 <style>
+  div {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
   .navigate {
     opacity: 0.6;
     transition: 0.2s ease-in-out opacity;

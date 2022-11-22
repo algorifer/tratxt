@@ -1,8 +1,11 @@
 <script lang="ts">
   import { DateTime, Duration } from 'luxon'
   import type { Record } from 'tratxt'
+  import { page } from '$app/stores'
 
-  export let trate: Record
+  export let trate: Record & {
+    date: string
+  }
 
   $: createDate = DateTime.fromISO(trate.date ?? '')
     .setLocale('en')
@@ -15,29 +18,29 @@
 
 <article>
   <p class="body">{trate.body}</p>
-  <div>
+  <p class="links">
     <a href={`/${trate.author}`} class="author">@{trate.author}</a>
-    {#if trate.project}
-      <a href={`/${trate.project}`} class="project">
-        ~{trate.project}
-      </a>
-    {/if}
     {#if trate.channel}
-      <a href={`/${trate.channel}`} class="channel">
+      <a href={`${$page.url.pathname}?channel=${trate.channel}`} class="channel">
         /{trate.channel}
       </a>
     {/if}
-  </div>
-  <div class="meta">
+    {#if trate.project}
+      <a href={`${$page.url.pathname}?project=${trate.project}`} class="project">
+        ~{trate.project}
+      </a>
+    {/if}
+  </p>
+  <p class="meta">
     <span>●</span>
     <span class="create">{createDate}</span>
     {#if duration}
-      <span> ;{duration}</span>
+      <span>{duration}t</span>
     {/if}
     {#if trate.mood}
-      <span> :{trate.mood}</span>
+      <span>{trate.mood}m</span>
     {/if}
-  </div>
+  </p>
 </article>
 
 <style>
@@ -47,29 +50,46 @@
     height: 100%;
   }
 
-  .body {
+  p {
     margin: 0;
   }
 
-  div {
+  .body {
+    margin: 0 0 1rem;
+  }
+
+  .links {
     display: flex;
+    align-items: baseline;
     flex-wrap: wrap;
     gap: 0 0.5rem;
-    color: var(--c-gray);
-  }
-
-  .author {
-    font-weight: 600;
-  }
-
-  a,
-  span {
-    color: var(--c-gray);
-    white-space: nowrap;
-  }
-
-  span {
+    margin-top: auto;
+    padding-top: 0.25rem;
     font-family: var(--mono);
     font-size: 0.9rem;
+    border-top: 0.5px solid var(--c-gray);
+  }
+
+  a {
+    color: var(--c-gray);
+  }
+
+  a:hover {
+    color: var(--c-front);
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--c-gray);
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+  }
+
+  .create {
+    margin-right: auto;
   }
 </style>

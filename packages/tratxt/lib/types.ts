@@ -1,7 +1,7 @@
 export interface RecordMeta {
-  project: string | null
-  channel: string | null
-  mood: string | null
+  project?: string | null
+  channel?: string | null
+  mood?: string | null
   time: number
   tags: string[]
 }
@@ -11,29 +11,6 @@ export interface Record extends RecordMeta {
   author: string
   date: string
   body: string
-}
-
-export interface TratxtMeta {
-  author: string
-  url: string
-  subscribes: TratxtSubscribe[] 
-  description?: string
-  site?: string
-  prev?: string
-}
-
-export interface TratxtSubscribe {
-  alias: string
-  url: string
-}
-
-export enum TratxtParams {
-  Name = 'name',
-  Url = 'url',
-  Description = 'description',
-  Site = 'site',
-  Subscribe = 'subscribe',
-  Prev = 'prev',
 }
 
 export interface RecordTable {

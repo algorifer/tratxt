@@ -1,17 +1,18 @@
 <script lang="ts">
   export let value: string = ''
-  export let placeholder: string = `Type command`
+  export let placeholder: string | undefined = undefined
   export let error: string | null = null
 
   $: cmd = value
 </script>
 
 <div class="wrapper">
+  <h1>Tratxt</h1>
   <div class="field">
     <textarea
       name="message"
       bind:value={cmd}
-      placeholder={placeholder ?? `Type command`}
+      placeholder={placeholder ?? `Command`}
       spellcheck="false"
       rows="1"
     />
@@ -25,10 +26,25 @@
 <style>
   .wrapper {
     grid-area: var(--area);
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'title button'
+      'input input';
     align-items: end;
     gap: 1rem;
+  }
+
+  h1 {
+    grid-area: title;
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1rem;
+    text-transform: uppercase;
+  }
+
+  button {
+    grid-area: button;
   }
 
   .field {
@@ -37,21 +53,20 @@
 
   textarea {
     width: 100%;
-    min-height: 2.5rem;
-    padding: 0.5rem;
-    font-family: inherit;
+    min-height: 1.5rem;
+    padding: 0;
+    font-family: var(--mono);
     font-size: 1rem;
     border: none;
     outline: none;
-    color: var(--f-front);
-    background: var(--c-gray);
-    border-radius: 4px;
+    color: var(--c-front);
+    background: var(--c-back);
     resize: vertical;
     transition: 0.2s ease-in-out;
   }
 
   textarea::placeholder {
-    color: var(--c-back);
+    color: var(--c-gray);
     transition: 0.2s ease-in-out;
   }
 
@@ -61,8 +76,6 @@
 
   textarea:focus {
     min-height: 5rem;
-    color: var(--c-back);
-    background: var(--c-front);
   }
 
   textarea:focus::placeholder {
@@ -71,23 +84,19 @@
 
   @media (min-width: 800px) {
     .wrapper {
-      flex-direction: row;
+      grid-template-columns: auto 1fr;
+      grid-template-areas:
+        'title input '
+        'title button';
       align-items: start;
-      gap: 0.5rem;
+      gap: 1rem 0.5rem;
     }
 
     button {
-      margin: 0.5rem;
+      justify-self: end;
     }
   }
 
   @media (min-width: 1240px) {
-    textarea {
-      background: var(--c-back);
-    }
-
-    textarea::placeholder {
-      color: var(--c-gray);
-    }
   }
 </style>

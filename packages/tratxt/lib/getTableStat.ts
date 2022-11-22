@@ -1,6 +1,7 @@
 import type { RecordTable, ParamEntity } from './types'
 
 export const getRecordCount = (table: RecordTable): number => table.hashes.length
+
 export const getAllTime = (
   table: RecordTable
 ): number => table.times.reduce((acc, it) => (acc + it), 0)
@@ -8,6 +9,7 @@ export const getAllTime = (
 const getTimesByIndexes = (
   table: RecordTable, indexes: number[]
 ) => indexes.reduce((acc, i) => (acc + table.times[i]), 0)
+
 const getParamsByIndexes = <T>(
   table: RecordTable, indexes: number[], param: keyof RecordTable
 ): T[] => indexes.map((i) => table[param][i] as T)
