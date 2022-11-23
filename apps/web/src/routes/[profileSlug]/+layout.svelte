@@ -13,7 +13,7 @@
       <p>{data.profile.description}</p>
     {/if}
     {#if data.profile.site}
-      <a href={data.profile.site} target="_blank">
+      <a href={data.profile.site} target="_blank" rel="noreferrer">
         {data.profile.site}
       </a>
     {/if}

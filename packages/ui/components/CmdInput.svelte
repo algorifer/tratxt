@@ -45,6 +45,8 @@
 
   button {
     grid-area: button;
+    font-family: var(--mono);
+    text-transform: uppercase;
   }
 
   .field {

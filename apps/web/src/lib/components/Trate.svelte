@@ -1,32 +1,31 @@
 <script lang="ts">
-  import { DateTime, Duration } from 'luxon'
   import type { Record } from 'tratxt'
+  import { DateTime, Duration } from 'luxon'
   import { page } from '$app/stores'
+  import { getDurationPercentByDay } from '../utils/getTimes'
 
   export let trate: Record & {
     date: string
   }
 
-  $: createDate = DateTime.fromISO(trate.date ?? '')
+  $: createDate = DateTime.fromISO(trate.date)
     .setLocale('en')
     .toLocaleString(DateTime.DATETIME_SHORT)
-
-  $: trate.project
-
   $: duration = trate.time && Duration.fromObject({ minutes: trate.time }).toFormat('h:mm')
+  $: [start, end] = getDurationPercentByDay(trate.date, trate.time)
 </script>
 
-<article>
+<article style={`--start: ${start}%; --end: ${end}%;`}>
   <p class="body">{trate.body}</p>
   <p class="links">
     <a href={`/${trate.author}`} class="author">@{trate.author}</a>
     {#if trate.channel}
-      <a href={`${$page.url.pathname}?channel=${trate.channel}`} class="channel">
+      <a href={`${$page.url.pathname}/channel:${trate.channel}`} class="channel">
         /{trate.channel}
       </a>
     {/if}
     {#if trate.project}
-      <a href={`${$page.url.pathname}?project=${trate.project}`} class="project">
+      <a href={`${$page.url.pathname}/project:${trate.project}`} class="project">
         ~{trate.project}
       </a>
     {/if}
@@ -35,10 +34,10 @@
     <span>●</span>
     <span class="create">{createDate}</span>
     {#if duration}
-      <span>{duration}t</span>
+      <span>;{duration}</span>
     {/if}
     {#if trate.mood}
-      <span>{trate.mood}m</span>
+      <span>:{trate.mood}</span>
     {/if}
   </p>
 </article>
@@ -59,6 +58,7 @@
   }
 
   .links {
+    position: relative;
     display: flex;
     align-items: baseline;
     flex-wrap: wrap;
@@ -67,7 +67,23 @@
     padding-top: 0.25rem;
     font-family: var(--mono);
     font-size: 0.9rem;
-    border-top: 0.5px solid var(--c-gray);
+  }
+
+  .links::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: block;
+    height: 1px;
+    background-image: linear-gradient(
+      to right,
+      var(--c-gray) var(--start),
+      var(--c-front) var(--start),
+      var(--c-front) var(--end),
+      var(--c-gray) var(--end)
+    );
   }
 
   a {
@@ -82,7 +98,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.5rem;
+    gap: 1rem;
     color: var(--c-gray);
     font-family: var(--mono);
     font-size: 0.9rem;

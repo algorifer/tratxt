@@ -1,26 +1,27 @@
 <script lang="ts">
   import { page } from '$app/stores'
 
-  $: projectFilter = $page.url.searchParams.get('project')
-  $: channelFilter = $page.url.searchParams.get('channel')
-  $: tagFilter = $page.url.searchParams.get('tag')
-  $: moodFilter = $page.url.searchParams.get('mood')
+  let prefix: string | null = null
 
-  $: show = Boolean(projectFilter || channelFilter || tagFilter || moodFilter)
+  $: if ($page.route.id?.endsWith('project[x+3a][name]')) {
+    prefix = '~'
+  } else if ($page.route.id?.endsWith('channel[x+3a][name]')) {
+    prefix = '/'
+  } else if ($page.route.id?.endsWith('tag[x+3a][name]')) {
+    prefix = '#'
+  } else if ($page.route.id?.endsWith('mood[x+3a][name]')) {
+    prefix = '⍨'
+  } else {
+    prefix = null
+  }
+
+  $: back = $page.url.pathname.split('/').slice(0, -1).join('/')
 </script>
 
-{#if show}
-  <a aria-label="Clean filter" title="Clean filter" href={$page.url.pathname}>
+{#if prefix}
+  <a aria-label="Clean filter" title="Clean filter" href={back}>
     <span>Filter: </span>
-    {#if projectFilter}
-      <span class="name">~{projectFilter}</span>
-    {:else if channelFilter}
-      <span class="name">/{channelFilter}</span>
-    {:else if tagFilter}
-      <span class="name">#{tagFilter}</span>
-    {:else if moodFilter}
-      <span class="name">[{moodFilter}]</span>
-    {/if}
+    <span class="name">{prefix}{$page.params.name}</span>
     <span> ✗</span>
   </a>
 {/if}

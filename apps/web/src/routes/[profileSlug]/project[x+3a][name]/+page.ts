@@ -12,6 +12,7 @@ export const load: PageLoad = async (event) => {
     .from('records')
     .select('*', { count: 'estimated' })
     .eq('author', event.params.profileSlug)
+    .eq('project', event.params.name)
     .order('date', { ascending: false })
     .range(start, start + 20)
 

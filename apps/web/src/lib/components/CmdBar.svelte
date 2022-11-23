@@ -21,12 +21,10 @@
     }
 
     const start = DateTime.fromISO(startTime)
-    const diff = DateTime.now().diff(start, ['hours', 'minutes', 'second']).toObject()
-    duration = `${diff.hours}:${diff.minutes}`
+    duration = DateTime.now().diff(start, ['hours', 'minutes', 'second']).toFormat('h:mm')
 
     interval = setInterval(() => {
-      const diff = DateTime.now().diff(start, ['hours', 'minutes', 'second']).toObject()
-      duration = `${diff.hours}:${diff.minutes}`
+      duration = DateTime.now().diff(start, ['hours', 'minutes', 'second']).toFormat('h:mm')
     }, 1000)
   }
 

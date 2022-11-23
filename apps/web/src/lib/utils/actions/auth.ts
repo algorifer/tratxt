@@ -11,11 +11,10 @@ export const email = async (event: RequestEvent): ActionResult => {
   if (!email) {
     return invalid(400, { authError: 'Email is required' })
   }
-
   const { error } = await supabaseClient.auth.signInWithOtp({ 
     email, 
     options: {
-      emailRedirectTo: event.url.host, 
+      emailRedirectTo: event.url.origin,
     } 
   })
   
@@ -31,10 +30,11 @@ export const email = async (event: RequestEvent): ActionResult => {
 export const github = async (event: RequestEvent): ActionResult => {
   const { supabaseClient } = await getSupabase(event)
 
+
   const { data, error } = await supabaseClient.auth.signInWithOAuth({ 
     provider: 'github', 
     options: {
-      redirectTo: event.url.host, 
+      redirectTo: event.url.origin, 
     }
   })
     
