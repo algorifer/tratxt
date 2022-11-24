@@ -2,7 +2,8 @@
   import type { PageData, ActionData } from './$types'
   import { getControlParams } from '$lib/utils/getControlParams'
   import MainControl from '$lib/components/MainControl.svelte'
-  import Trate from '$lib/components/Trate.svelte'
+  import RecordsList from '$lib/components/RecordsList.svelte'
+  import DocCard from '$lib/components/DocCard.svelte'
 
   export let data: PageData
   export let form: ActionData
@@ -11,16 +12,11 @@
 </script>
 
 <main>
-  <ul>
-    {#if !data.records?.length}
-      <li>Trates not founded</li>
+  <RecordsList records={data.records}>
+    {#if data.doc}
+      <DocCard author={data.profile.name} doc={data.doc} />
     {/if}
-    {#each data.records as trate, i (trate.date)}
-      <li>
-        <Trate {trate} />
-      </li>
-    {/each}
-  </ul>
+  </RecordsList>
 </main>
 <MainControl {params} --area="cmd" />
 
@@ -28,16 +24,6 @@
   main {
     margin: 2rem 1rem auto;
     flex-grow: 2;
-  }
-
-  ul {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    flex-direction: column;
-    gap: 2rem;
-    margin: 0;
-    padding: 0;
-    list-style: none;
   }
 
   @media (min-width: 800px) {

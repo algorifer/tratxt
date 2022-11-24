@@ -43,9 +43,9 @@
     <a href={`/${userName}`} class="profile">@{userName}</a>
   </div>
   {#if duration}
-    <span>Traker: {duration}</span>
+    <span>current;{duration}</span>
   {:else if start}
-    <span>Traker started: {start}</span>
+    <span>started;{start}</span>
   {/if}
 </form>
 
@@ -73,6 +73,7 @@
   span {
     margin-left: auto;
     font-family: var(--mono);
+    text-transform: uppercase;
   }
 
   @media (min-width: 800px) {

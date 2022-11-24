@@ -39,6 +39,32 @@ export interface Database {
           author?: string
         }
       }
+      docs: {
+        Row: {
+          author: string
+          name: string
+          body: string
+          private: boolean
+          created_at: string
+          parents: string[]
+        }
+        Insert: {
+          author: string
+          name: string
+          body?: string
+          private?: boolean
+          created_at?: string
+          parents?: string[]
+        }
+        Update: {
+          author?: string
+          name?: string
+          body?: string
+          private?: boolean
+          created_at?: string
+          parents?: string[]
+        }
+      }
       profiles: {
         Row: {
           id: string

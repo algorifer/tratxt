@@ -2,11 +2,17 @@
   import { Duration } from 'luxon'
   import type { ParamStat } from '../utils/tratxt/getParam'
 
+  interface Doc {
+    name: string
+    body: string
+  }
+
   export let title: string
   export let prefix: string
   export let basicUrl: string
   export let items: ParamStat[]
   export let allTime: number
+  export let docs: Doc[]
 </script>
 
 <section>
@@ -20,6 +26,7 @@
     {#each items as item (item.name)}
       {@const percent = item.time && Math.floor((item.time / allTime) * 100)}
       {@const duration = Duration.fromObject({ minutes: item.time }).toFormat('h:mm')}
+      {@const doc = docs.find(({ name }) => name.toLowerCase() === item.name.toLowerCase())}
       <li style={`--percent: ${percent}%`}>
         <a href={`${basicUrl}${item.name}`}>
           <span class="name">{prefix}{item.name}</span>
@@ -30,6 +37,9 @@
             </span>
           {/if}
         </a>
+        {#if doc}
+          <p>{doc.body.split('\n')[0]}</p>
+        {/if}
       </li>
     {/each}
   </ul>
@@ -91,5 +101,9 @@
 
   .count {
     margin: 0 auto 0 1rem;
+  }
+
+  p {
+    margin: 0.5rem 0;
   }
 </style>

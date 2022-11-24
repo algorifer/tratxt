@@ -7,6 +7,7 @@ import { editDescription } from './editDescription'
 import { editSite } from './editSite'
 import { startTracker } from './startTracker'
 import { stopTracker } from './stopTracker'
+import { addDoc } from './addDoc'
 
 export const cmd = async (event: RequestEvent): ActionResult => {
   const formData = await event.request.formData()
@@ -26,8 +27,9 @@ export const cmd = async (event: RequestEvent): ActionResult => {
       return startTracker(event, message)
     case 'stop':
       return stopTracker(event, message)
+    case 'add:doc':
+      return addDoc(event, message)
     default:
       return addRecord(event, message)
   }
-
 }

@@ -16,8 +16,16 @@ export const load: PageLoad = async (event) => {
     .order('date', { ascending: false })
     .range(start, start + 20)
 
+  const { data: doc } = await supabaseClient
+    .from('docs')
+    .select('name, body')
+    .eq('author', event.params.profileSlug)
+    .ilike('name', event.params.name)
+    .single()
+
   return {
     records: records ?? [],
     count,
+    doc,
   }
 }

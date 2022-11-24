@@ -20,6 +20,22 @@ export const load: PageLoad = async (event) => {
   const allCount = table.hash.length
   const allTime = table.time.reduce((acc, it) => (acc + it), 0)
 
+  const { data: docs } = await supabaseClient
+    .from('docs')
+    .select('name, body')
+    .eq('author', event.params.profileSlug)
+    .in('name', [
+      'README', 
+      ...projects.map(({ name }) => name), 
+      ...channels.map(({ name }) => name)
+    ])
+
+  const { data: children } = await supabaseClient
+    .from('docs')
+    .select('name')
+    .eq('author', event.params.profileSlug)
+    .contains('parents', ['README'])
+
   return {
     allCount,
     allTime,
@@ -27,5 +43,7 @@ export const load: PageLoad = async (event) => {
     channels,
     tags,
     moods,
+    docs: docs || [],
+    children: children?.map(({name}) => name) ?? [],
   }
 }
