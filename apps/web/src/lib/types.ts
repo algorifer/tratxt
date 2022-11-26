@@ -28,3 +28,17 @@ export interface ControlParams {
   authSuccess?: boolean
   initError?: string
 }
+
+export interface TraRecord {
+  hash: string
+  author: string
+  date: string
+  body: string
+  time: number
+  team: string | null
+  project: string | null
+  channel: string | null
+  tags: string[]
+  mood: string | null
+  private: boolean
+}

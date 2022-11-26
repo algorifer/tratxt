@@ -3,7 +3,7 @@ import type { RequestEvent } from '@sveltejs/kit'
 import type { ActionResult } from '../../types'
 import { getSupabase } from '@supabase/auth-helpers-sveltekit'
 import { invalid } from '@sveltejs/kit'
-import { parseRecord } from 'tratxt'
+import { parseRecord } from '../tratxt/parseRecordInput'
 
 const reTime = /(^|\s)(;[\d]+)/ig
 
@@ -30,13 +30,11 @@ export const stopTracker = async (event: RequestEvent, message: string): ActionR
   const [, ...payload] = message.split(' ')
   const duration = DateTime.now().diff(DateTime.fromISO(tracker.start), ['minutes', 'seconds'])
   const cmdValue = `${payload.join(' ').replaceAll(reTime, '')} ;${duration.minutes}`
-  const record = parseRecord(profile.name, cmdValue)
+  const record = parseRecord(cmdValue)
 
   const { error } = await supabaseClient.from('records').insert({
     ...record,
-    project: record.project || undefined,
-    channel: record.channel || undefined,
-    mood: record.mood || undefined,
+    author: profile.name,
   })
 
   if (error) return invalid(500, { 

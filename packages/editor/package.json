@@ -1,7 +1,7 @@
 {
-  "name": "tratxt",
+  "name": "editor",
   "version": "0.0.0",
-  "description": "Styles and components for use in svelte websites",
+  "description": "Input for commands",
   "type": "module",
   "module": "index.ts",
   "svelte": "index.ts",
@@ -11,11 +11,7 @@
     "format": "prettier --write --ignore-path=../../.prettierignore ."
   },
   "devDependencies": {
-    "@types/node": "^18.11.9",
-    "eslint-config-custom": "*"
-  },
-  "dependencies": {
-    "luxon": "^3.1.0",
-    "nanoid": "^4.0.0"
+    "eslint-config-custom": "*",
+    "svelte": "^3.53.1"
   }
 }

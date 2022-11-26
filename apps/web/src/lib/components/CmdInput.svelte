@@ -1,6 +1,7 @@
 <script lang="ts">
+  import { Editor } from 'editor'
+
   export let value: string = ''
-  export let placeholder: string | undefined = undefined
   export let error: string | null = null
 
   $: cmd = value
@@ -9,13 +10,7 @@
 <div class="wrapper">
   <h1>Tratxt</h1>
   <div class="field">
-    <textarea
-      name="message"
-      bind:value={cmd}
-      placeholder={placeholder ?? `Command`}
-      spellcheck="false"
-      rows="1"
-    />
+    <Editor name="message" {value} on:submit />
     {#if error}
       <p>{error}</p>
     {/if}
@@ -39,7 +34,6 @@
     grid-area: title;
     margin: 0;
     font-size: 1rem;
-    line-height: 1rem;
     text-transform: uppercase;
   }
 
@@ -51,37 +45,6 @@
 
   .field {
     width: 100%;
-  }
-
-  textarea {
-    width: 100%;
-    min-height: 1.5rem;
-    padding: 0;
-    font-family: var(--mono);
-    font-size: 1rem;
-    border: none;
-    outline: none;
-    color: var(--c-front);
-    background: var(--c-back);
-    resize: vertical;
-    transition: 0.2s ease-in-out;
-  }
-
-  textarea::placeholder {
-    color: var(--c-gray);
-    transition: 0.2s ease-in-out;
-  }
-
-  textarea:hover::placeholder {
-    color: var(--c-front);
-  }
-
-  textarea:focus {
-    min-height: 5rem;
-  }
-
-  textarea:focus::placeholder {
-    color: var(--c-back);
   }
 
   @media (min-width: 800px) {

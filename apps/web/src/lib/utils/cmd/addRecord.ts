@@ -1,6 +1,6 @@
 import type { RequestEvent } from '@sveltejs/kit'
 import { getSupabase } from '@supabase/auth-helpers-sveltekit'
-import { parseRecord } from 'tratxt'
+import { parseRecord } from '../tratxt/parseRecordInput'
 import type { ActionResult } from '../../types'
 import { invalid } from '@sveltejs/kit'
 
@@ -13,13 +13,11 @@ export const addRecord = async (event: RequestEvent, message: string): ActionRes
     cmdError: 'Session not founded, try clear cookie' 
   })
   
-  const record = parseRecord(profile.name, message)
+  const record = parseRecord(message)
 
   const { error } = await supabaseClient.from('records').insert({
     ...record,
-    project: record.project || undefined,
-    channel: record.channel || undefined,
-    mood: record.mood || undefined,
+    author: profile.name,
   })
   
   if (error) return invalid(500, { 

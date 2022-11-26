@@ -1,17 +1,18 @@
 <script lang="ts">
   import { onDestroy } from 'svelte'
   import { DateTime } from 'luxon'
-  import { CmdInput } from 'ui'
   import { enhance } from '$app/forms'
+  import CmdInput from './CmdInput.svelte'
 
   export let value: string = ''
   export let error: string | null = null
   export let userName: string
-  export let placeholder: string | undefined = undefined
   export let tracker: string | undefined = undefined
 
   let duration: string | undefined = undefined
   let interval: NodeJS.Timer | undefined = undefined
+
+  let formRef: HTMLFormElement | null = null
 
   const getDuration = (startTime?: string) => {
     if (!startTime) {
@@ -37,8 +38,8 @@
   $: start = tracker && DateTime.fromISO(tracker).toFormat('hh:mm')
 </script>
 
-<form method="post" action="?/cmd" use:enhance>
-  <CmdInput {value} {placeholder} {error} --area="input" />
+<form bind:this={formRef} method="post" action="?/cmd" use:enhance>
+  <CmdInput {value} {error} on:submit={() => formRef?.submit()} --area="input" />
   <div class="links">
     <a href={`/${userName}`} class="profile">@{userName}</a>
   </div>

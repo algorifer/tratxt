@@ -1,6 +1,0 @@
-export { default as Button } from './components/Button.svelte'
-export { default as Editor } from './components/Editor.svelte'
-export { default as LinkButton } from './components/LinkButton.svelte'
-export { default as TextField } from './components/TextField.svelte'
-export { default as TextArea } from './components/TextArea.svelte'
-export { default as CmdInput } from './components/CmdInput.svelte'

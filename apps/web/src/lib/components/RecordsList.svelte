@@ -1,10 +1,8 @@
 <script lang="ts">
-  import type { Record } from 'tratxt'
-  import Trate from './Trate.svelte'
+  import type { TraRecord } from '../types'
+  import RecordCard from './RecordCard.svelte'
 
-  export let records: (Record & {
-    date: string
-  })[]
+  export let records: TraRecord[]
 </script>
 
 <ul>
@@ -14,7 +12,7 @@
   {/if}
   {#each records as trate, i (trate.date)}
     <li>
-      <Trate {trate} />
+      <RecordCard {trate} />
     </li>
   {/each}
 </ul>

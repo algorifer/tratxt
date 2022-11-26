@@ -1,12 +1,10 @@
 <script lang="ts">
-  import type { Record } from 'tratxt'
+  import type { TraRecord } from '../types'
   import { DateTime, Duration } from 'luxon'
-  import { page } from '$app/stores'
+  import { bodyParse } from 'editor'
   import { getDurationPercentByDay } from '../utils/getTimes'
 
-  export let trate: Record & {
-    date: string
-  }
+  export let trate: TraRecord
 
   $: createDate = DateTime.fromISO(trate.date)
     .setLocale('en')
@@ -16,16 +14,16 @@
 </script>
 
 <article style={`--start: ${start}%; --end: ${end}%;`}>
-  <p class="body">{trate.body}</p>
+  <p class="body">{@html bodyParse(trate.body)}</p>
   <p class="links">
     <a href={`/${trate.author}`} class="author">@{trate.author}</a>
     {#if trate.channel}
-      <a href={`${$page.url.pathname}/channel:${trate.channel}`} class="channel">
+      <a href={`/${trate.author}/channel:${trate.channel}`} class="channel">
         /{trate.channel}
       </a>
     {/if}
     {#if trate.project}
-      <a href={`${$page.url.pathname}/project:${trate.project}`} class="project">
+      <a href={`/${trate.author}/project:${trate.project}`} class="project">
         ~{trate.project}
       </a>
     {/if}

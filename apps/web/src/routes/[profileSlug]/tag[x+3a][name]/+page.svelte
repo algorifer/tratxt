@@ -21,16 +21,6 @@
     flex-grow: 2;
   }
 
-  ul {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    flex-direction: column;
-    gap: 2rem;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
   @media (min-width: 800px) {
     main {
       margin: 2rem 2rem auto;
