@@ -1,7 +1,6 @@
-import { DateTime } from 'luxon'
+import type { DateTime } from 'luxon'
 
-export const getDurationPercentByDay = (date: string, duration: number): [number, number] => {
-  const dt = DateTime.fromISO(date)
+export const getDurationPercentByDay = (dt: DateTime, duration: number): [number, number] => {
   const hours = dt.hour
   const minutes = dt.minute
   const end = hours * 60 + minutes

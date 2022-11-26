@@ -31,6 +31,7 @@ export let load: PageLoad = async (event) => {
     .select('*')
     .eq('author', event.params.profileSlug)
     .eq('project', event.params.doc)
+    .order('date', { ascending: false })
 
   return {
     doc,

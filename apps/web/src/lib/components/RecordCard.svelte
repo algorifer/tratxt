@@ -3,6 +3,7 @@
   import { DateTime, Duration } from 'luxon'
   import { bodyParse } from 'editor'
   import { getDurationPercentByDay } from '../utils/getTimes'
+  import GraphDayLine from './GraphDayLine.svelte'
 
   export let trate: TraRecord
 
@@ -10,11 +11,13 @@
     .setLocale('en')
     .toLocaleString(DateTime.DATETIME_SHORT)
   $: duration = trate.time && Duration.fromObject({ minutes: trate.time }).toFormat('h:mm')
-  $: [start, end] = getDurationPercentByDay(trate.date, trate.time)
 </script>
 
-<article style={`--start: ${start}%; --end: ${end}%;`}>
+<article>
   <p class="body">{@html bodyParse(trate.body)}</p>
+  <svg width="100%" height={2} viewBox="0 0 100 2" preserveAspectRatio="none">
+    <GraphDayLine records={[{ date: DateTime.fromISO(trate.date), time: trate.time }]} />
+  </svg>
   <p class="links">
     <a href={`/${trate.author}`} class="author">@{trate.author}</a>
     {#if trate.channel}
@@ -47,6 +50,10 @@
     height: 100%;
   }
 
+  article :global(svg) {
+    margin-top: auto;
+  }
+
   p {
     margin: 0;
   }
@@ -61,27 +68,13 @@
     align-items: baseline;
     flex-wrap: wrap;
     gap: 0 0.5rem;
-    margin-top: auto;
     padding-top: 0.25rem;
     font-family: var(--mono);
     font-size: 0.9rem;
   }
 
-  .links::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: block;
-    height: 1px;
-    background-image: linear-gradient(
-      to right,
-      var(--c-gray) var(--start),
-      var(--c-front) var(--start),
-      var(--c-front) var(--end),
-      var(--c-gray) var(--end)
-    );
+  svg {
+    width: 100%;
   }
 
   a {

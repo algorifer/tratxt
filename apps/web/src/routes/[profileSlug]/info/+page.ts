@@ -8,7 +8,7 @@ export const load: PageLoad = async (event) => {
  
   const { data } = await supabaseClient
     .from('records')
-    .select('hash, project, channel, mood, time, tags')
+    .select('hash, date, project, channel, mood, time, tags')
     .eq('author', event.params.profileSlug)
 
   const table = getStatTable(data || [])
