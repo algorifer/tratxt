@@ -4,6 +4,7 @@ import type { PageLoad } from './$types'
 
 export let load: PageLoad = async (event) => {
   const { supabaseClient } = await getSupabase(event)
+  const parent = await event.parent()
 
   const { data: doc } = await supabaseClient
     .from('docs')
@@ -13,31 +14,19 @@ export let load: PageLoad = async (event) => {
     .single()
 
   if (!doc) throw error(404, { message: 'Doc not found' })
-    
-  const { data: children } = await supabaseClient
-    .from('docs')
-    .select('name')
-    .eq('author', event.params.profileSlug)
-    .contains('parents', [event.params.doc])
 
-  const { data: brothers } = await supabaseClient
-    .from('docs')
-    .select('name')
-    .eq('author', event.params.profileSlug)
-    .contains('parents', [doc.parents[0]] ?? [])
-
-  const { data: records } = await supabaseClient
+  const { data: records, count } = await supabaseClient
     .from('records')
-    .select('*')
+    .select('*', { count: 'estimated' })
     .eq('author', event.params.profileSlug)
     .eq('project', event.params.doc)
     .order('date', { ascending: false })
+    .range(0, 7)
 
   return {
     doc,
-    parents: doc.parents,
-    brothers: doc.name === 'README' ? ['README'] : brothers?.map(({ name }) => name) ?? [],
-    children: children?.map(({ name }) => name) ?? [],
+    map: parent.docMaps.find(({ name }) => name === doc.name),
     records: records || [],
+    recordCount: count,
   }
 }

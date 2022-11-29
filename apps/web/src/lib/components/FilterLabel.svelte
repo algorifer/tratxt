@@ -20,9 +20,7 @@
 
 {#if prefix}
   <a aria-label="Clean filter" title="Clean filter" href={back}>
-    <span>Filter: </span>
-    <span class="name">{prefix}{$page.params.name}</span>
-    <span> ✗</span>
+    <span class="name">{prefix}{$page.params.name}</span> ✗
   </a>
 {/if}
 

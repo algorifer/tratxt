@@ -14,7 +14,6 @@
 {:else}
   <CmdBar
     userName={params.userName}
-    placeholder={params.placeholder}
     value={params.cmdValue}
     error={params.cmdError}
     tracker={params.tracker}

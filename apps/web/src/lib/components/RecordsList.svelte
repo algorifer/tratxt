@@ -22,10 +22,16 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     flex-direction: column;
-    gap: 2rem;
+    gap: 4rem;
     grid-area: var(--area);
     margin: 0;
     padding: 0;
     list-style: none;
+  }
+
+  @media (min-width: 800px) {
+    ul {
+      gap: 2rem;
+    }
   }
 </style>

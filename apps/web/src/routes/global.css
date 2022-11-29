@@ -103,6 +103,7 @@ a {
 
 a:hover {
   text-decoration: underline;
+  color: var(--c-front);
 }
 
 a:focus {

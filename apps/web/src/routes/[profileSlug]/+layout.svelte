@@ -4,6 +4,8 @@
   import FilterLabel from '$lib/components/FilterLabel.svelte'
 
   export let data: LayoutData
+
+  $: docs = data.docMaps?.filter(({ parents }) => !parents.length).map(({ name }) => name) ?? []
 </script>
 
 <header>
@@ -18,7 +20,7 @@
       </a>
     {/if}
   </div>
-  <ProfileTabs --area="tabs" />
+  <ProfileTabs {docs} --area="tabs" />
   <FilterLabel --area="filter" />
 </header>
 
@@ -30,14 +32,13 @@
     flex-direction: column;
     gap: 1rem;
     padding-bottom: 1rem;
-    margin: 1rem;
+    margin: 2rem 1rem;
     border-bottom: 0.5px solid var(--c-gray);
   }
 
   h1 {
-    margin: 0;
+    margin: 0 0 2rem;
     font-size: 1rem;
-    text-transform: uppercase;
   }
 
   p {
@@ -58,6 +59,7 @@
 
     h1 {
       grid-area: title;
+      margin: 0;
     }
 
     div {

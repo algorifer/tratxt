@@ -10,14 +10,9 @@
 </script>
 
 <main>
-  <DocsNav
-    author={data.profile.name}
-    current={data.doc.name}
-    parents={data.doc.parents}
-    brothers={data.brothers}
-    children={data.children}
-    --area="docs"
-  />
+  {#if data.map}
+    <DocsNav author={data.profile.name} map={data.map} --area="docs" />
+  {/if}
   <section>
     {data.doc.body}
   </section>
@@ -41,8 +36,8 @@
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: auto 1fr;
       grid-template-areas:
-        'docs   lists '
-        'readme lists';
+        'docs  body'
+        'lists body';
       gap: 2rem;
       align-items: start;
       align-content: start;
@@ -50,7 +45,7 @@
     }
 
     section {
-      grid-area: readme;
+      grid-area: body;
     }
   }
 </style>

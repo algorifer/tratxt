@@ -53,13 +53,12 @@ export const action = (node: HTMLElement, { onChange, onSubmit }: Options) => {
   setListener('paste', (event) => paste(node, event))
 
   return {
-    update: ({ value }: Options) => {
-      console.log('update', value)
-      const pos = save(node)
-      node.textContent = value
-      highlight(node)
-      restore(node, pos)
-    },
+    // update: ({ value }: Options) => {
+    //   const pos = save(node)
+    //   node.textContent = value
+    //   highlight(node)
+    //   restore(node, pos)
+    // },
     destroy: () => {
       for (let [type, fn] of listeners) {
         node.removeEventListener(type, fn)

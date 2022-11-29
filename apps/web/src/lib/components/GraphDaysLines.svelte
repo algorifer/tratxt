@@ -1,23 +1,30 @@
 <script lang="ts">
-  import type { DatedTable } from '../utils/tratxt/getStatTable'
-  import { getTimeRecordsByDay } from '../utils/tratxt/getTimeRecords'
+  import type { Calendar } from '../utils/tratxt/getCalendar'
   import GraphDayLine from './GraphDayLine.svelte'
 
-  export let table: DatedTable
+  export let calendar: Calendar
 
-  $: byDays = getTimeRecordsByDay(table)
-  $: days = Array.from(Object.values(byDays))
-
-  $: console.log(byDays)
+  $: days = calendar
+    .reduce((acc, it) => [...acc, ...it], [])
+    .reverse()
+    .slice(0, 40)
 </script>
 
-<svg
-  width="100%"
-  height={days.length * 3}
-  viewBox={`0 0 100 ${days.length * 3}`}
-  preserveAspectRatio="none"
->
-  {#each days as day, i}
-    <GraphDayLine records={day} y={i * 3} />
-  {/each}
-</svg>
+<section>
+  <svg
+    width="100%"
+    height={days.length * 3}
+    viewBox={`0 0 100 ${days.length * 3}`}
+    preserveAspectRatio="none"
+  >
+    {#each days as day, i}
+      <GraphDayLine records={day.timeLines} y={i * 3} />
+    {/each}
+  </svg>
+</section>
+
+<style>
+  section {
+    margin: 2rem 0;
+  }
+</style>

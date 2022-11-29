@@ -6,18 +6,18 @@
   export let name: string
   export let value: string = ''
 
-  let editorAction = undefined
+  // let editorAction = undefined
 
-  const dispatch = createEventDispatcher()
+  // const dispatch = createEventDispatcher()
 
-  onMount(async () => {
-    const { action } = await import('../utils/action')
-    editorAction = action
-  })
+  // onMount(async () => {
+  //   const { action } = await import('../utils/action')
+  //   editorAction = action
+  // })
 </script>
 
 <div class="wrapper">
-  {#if editorAction}
+  <!-- {#if editorAction}
     {#if !value.length}
       <span in:fade>Command</span>
     {/if}
@@ -31,8 +31,8 @@
     >
       {value}
     </div>
-  {/if}
-  <TextArea {name} placeholder="Command" {value} hidden={Boolean(editorAction)} />
+  {/if} -->
+  <TextArea {name} placeholder="Command" {value} />
 </div>
 
 <style>

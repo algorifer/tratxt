@@ -64,7 +64,7 @@ export const getDatedTable = (records: Record[]): DatedTable => {
 
   for (const record of records) {
     table.hash.push(record.hash)
-    table.date.push(DateTime.fromISO(record.date))
+    table.date.push(DateTime.fromISO(record.date).setLocale('en'))
     table.project.push(record.project)
     table.channel.push(record.channel)
     table.tags.push(record.tags)

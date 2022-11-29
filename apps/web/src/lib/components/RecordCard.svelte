@@ -2,8 +2,8 @@
   import type { TraRecord } from '../types'
   import { DateTime, Duration } from 'luxon'
   import { bodyParse } from 'editor'
-  import { getDurationPercentByDay } from '../utils/getTimes'
   import GraphDayLine from './GraphDayLine.svelte'
+  import { getTimeLine } from '../utils/tratxt/getCalendar'
 
   export let trate: TraRecord
 
@@ -16,7 +16,7 @@
 <article>
   <p class="body">{@html bodyParse(trate.body)}</p>
   <svg width="100%" height={2} viewBox="0 0 100 2" preserveAspectRatio="none">
-    <GraphDayLine records={[{ date: DateTime.fromISO(trate.date), time: trate.time }]} />
+    <GraphDayLine records={[getTimeLine(DateTime.fromISO(trate.date), trate.time)]} />
   </svg>
   <p class="links">
     <a href={`/${trate.author}`} class="author">@{trate.author}</a>

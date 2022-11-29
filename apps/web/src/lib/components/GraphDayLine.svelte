@@ -1,15 +1,13 @@
 <script lang="ts">
-  import type { TimeRecord } from '../utils/tratxt/getTimeRecords'
-  import { getDurationPercentByDay } from '../utils/getTimes'
+  import type { TimeLine } from '../utils/tratxt/getCalendar'
 
-  export let records: TimeRecord[]
+  export let records: TimeLine[]
   export let y: number = 0
 </script>
 
 <g x={0} {y} width={100} height={2}>
-  <rect x={0} y={y + 0.5} width={100} height={1} fill="var(--c-gray)" />
+  <rect x={0} y={y + 0.75} width={100} height={0.5} fill="var(--c-gray)" />
   {#each records as record}
-    {@const [start, end] = getDurationPercentByDay(record.date, record.time)}
-    <rect x={start} {y} width={end - start} height={2} fill="var(--c-front)" />
+    <rect x={record.start} {y} width={record.end - record.start} height={2} fill="var(--c-front)" />
   {/each}
 </g>

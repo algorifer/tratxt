@@ -1,6 +1,8 @@
 <script lang="ts">
   import { page } from '$app/stores'
 
+  export let docs: string[]
+
   const baseRoute = '/[profileSlug]'
   $: basePath = `/${$page.params.profileSlug}`
 </script>
@@ -10,11 +12,15 @@
     <a href={`${basePath}`} class:active={$page.route.id === baseRoute}>Feed</a>
   </li>
   <li>
-    <a href={`${basePath}/info`} class:active={$page.route.id === `${baseRoute}/info`}>Info</a>
-  </li>
-  <li>
     <a href={`${basePath}/stat`} class:active={$page.route.id === `${baseRoute}/stat`}>Stat</a>
   </li>
+  {#each docs as doc}
+    <li>
+      <a href={`${basePath}/${doc}`} class:active={$page.route.id === `${baseRoute}/${doc}`}>
+        {doc}
+      </a>
+    </li>
+  {/each}
 </ul>
 
 <style>

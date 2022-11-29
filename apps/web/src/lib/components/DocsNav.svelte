@@ -1,20 +1,20 @@
 <script lang="ts">
+  import type { DocMap } from '../utils/docs/createDocMap'
   import DocsList from './DocsList.svelte'
 
   export let author: string
-  export let parents: string[]
-  export let brothers: string[]
-  export let children: string[]
-  export let current: string
+  export let map: DocMap
+
+  $: console.log(map)
 </script>
 
 <section>
-  {#if parents.length}
-    <DocsList {author} {current} items={parents} />
+  {#if map.parents.length}
+    <DocsList {author} current={map.name} items={map.parents} />
   {/if}
-  <DocsList {author} {current} items={brothers} />
-  {#if children.length}
-    <DocsList {author} {current} items={children} />
+  <DocsList {author} current={map.name} items={map.brothers} />
+  {#if map.children.length}
+    <DocsList {author} current={map.name} items={map.children} />
   {/if}
 </section>
 
