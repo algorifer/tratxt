@@ -11,7 +11,7 @@
 </script>
 
 <main>
-  <RecordsList records={data.records} />
+  <RecordsList records={data.records} count={data.count} size={data.pageSize} />
 </main>
 <MainControl {params} --area="cmd" />
 

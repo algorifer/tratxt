@@ -1,3 +1,4 @@
+import { getRange } from '$lib/utils/tratxt/getRange'
 import { getSupabase } from '@supabase/auth-helpers-sveltekit'
 import { error } from '@sveltejs/kit'
 import type { PageLoad } from './$types'
@@ -15,18 +16,22 @@ export let load: PageLoad = async (event) => {
 
   if (!doc) throw error(404, { message: 'Doc not found' })
 
+  const pageSize = 8
+  const [start, end] = getRange(event, pageSize)
+
   const { data: records, count } = await supabaseClient
     .from('records')
     .select('*', { count: 'estimated' })
     .eq('author', event.params.profileSlug)
     .eq('project', event.params.doc)
     .order('date', { ascending: false })
-    .range(0, 7)
+    .range(start, end)
 
   return {
     doc,
     map: parent.docMaps.find(({ name }) => name === doc.name),
     records: records || [],
-    recordCount: count,
+    count: count ?? 0,
+    pageSize,
   }
 }

@@ -16,7 +16,7 @@
   <section>
     {data.doc.body}
   </section>
-  <RecordsList records={data.records} --area="lists" />
+  <RecordsList records={data.records} count={data.count} size={data.pageSize} --area="lists" />
 </main>
 
 <MainControl params={getControlParams(data, form)} />
